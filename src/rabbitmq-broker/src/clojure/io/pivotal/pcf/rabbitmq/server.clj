@@ -143,7 +143,8 @@
     (catch Exception e
       (log/errorf "Failed to provision a service: %s" id)
       (.printStackTrace e)
-      (log-exception e)))
+      (log-exception e)
+      (internal-error (printf "Failed to provision a service %s" id))))
     (conflict)))
 
 (defn delete-service
@@ -194,7 +195,8 @@
       (catch Exception e
         (log/errorf "Failed to bind a service: %s" virtual-host)
         (.printStackTrace e)
-        (log-exception e)))))
+        (log-exception e)
+        (internal-error (printf "Failed to bind a service: %s" virtual-host))))))
 
 (defn unbind-service
   [{:keys [params] :as req}]
